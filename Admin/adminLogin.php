@@ -21,7 +21,7 @@ include("../Database/database.php");
                 </video>
             </div>
             <div class="login-form">
-                <div class="login-title">Haerin's Shop</div>
+                <div class="login-title">Admin Page</div>
                 <form action="<?php htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
                     <h4>Welcome to Haerin's  Shop</h4>
                     <div class="login-side">
@@ -36,7 +36,7 @@ include("../Database/database.php");
                     </div>
                     <input type="submit" value="Sign in" class="submit">
                     <div class="register-side">
-                        <span>New Haerin's member?</span><a href="../Authen/register.php">Create Account</a>
+                        <span>New Haerin's member?</span><a href="../Admin/adminRegister.php">Create Account</a>
                     </div>
                 </form>
             </div>
@@ -48,7 +48,7 @@ include("../Database/database.php");
   if($_SERVER["REQUEST_METHOD"]=="POST" ){
     $username= $_POST["username"];
     $password= $_POST["password"];
-    $sql = "SELECT * from furnitures where username = '$username' and password= '$password' ";
+    $sql = "SELECT * from admin where username = '$username' and password= '$password' ";
     $result = mysqli_query($conn,$sql);
     $rows = mysqli_fetch_assoc($result);
     if( $rows) {

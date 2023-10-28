@@ -34,7 +34,7 @@ include("../Database/database.php");
                             <input type="password" name="password" id="">
                         </div>
                     </div>
-                    <input type="submit" value="Sign in" class="submit">
+                    <input type="submit" value="Sign up" class="submit">
                     <div class="register-side">
                         <span>Have an Account?</span><a href="../Authen/login.php">Login</a>
                     </div>
@@ -57,7 +57,11 @@ include("../Database/database.php");
             try {
                 $sql = "INSERT INTO furnitures (username,password) VALUES ('$username','$password')";
                 $result=  mysqli_query($conn,$sql);
+
                 if($result) {
+                    session_start();
+                    $_SESSION["username"] = $username;
+                     $_SESSION["password"] = $password;
                     header("Location: ../Views/Home.php"); 
                 }
                 else {
