@@ -44,7 +44,6 @@
         include("../Database/database.php");
             $sql = "SELECT * from cart";
             $result = mysqli_query($conn,$sql);
-            
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)){
                     ?> 
@@ -64,7 +63,24 @@
 
                 </div>
                 </a>
-                <button class="delete">Delete</button>
+                <?php  
+                $id = $rows["id"];
+                if(isset($_POST["delete"])) {
+                    $delete_id = $_POST["delete_id"];
+                    if ($delete_id == $id) {
+                        $sql_delete = "DELETE FROM cart WHERE id = '$id'";
+                        mysqli_query($conn, $sql_delete);
+        
+                        // Redirect the user back to the cart page
+                        header("Location: cart.php");
+                    }
+                
+                }
+                echo "<form action='' method='post'>
+                <input type='hidden' name='delete_id' value='$id'>
+                <button class='delete' type='submit' name= 'delete' style='height:55px;'>Delete</button>
+                </form>" ;
+                ?>
                 <?php
                 }
             }

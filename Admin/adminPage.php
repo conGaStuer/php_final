@@ -33,6 +33,14 @@ echo "Hello" . $username;
         <?php 
             $sql = "SELECT * from products";
             $result = mysqli_query($conn,$sql);
+            if (isset($_POST["delete"])) {
+                // Get the ID of the product to delete
+                $delete_id = $_POST["delete_id"];
+          
+                // Delete the product from the database
+                $sql_delete = "DELETE FROM products WHERE id = '$delete_id'";
+                mysqli_query($conn, $sql_delete);
+              }
             if(mysqli_num_rows($result) > 0) {
                 while($rows = mysqli_fetch_assoc($result)) {
         ?>
@@ -44,7 +52,16 @@ echo "Hello" . $username;
             <td><span><?php echo $rows["item_tag"] ?></span></td>
             <td>
                 <button class="update"><a href="../Admin/update.php?id=<?php echo $rows["id"] ?>">Update</a></button>
-                <button class="delete">Delete</a></button>
+                <?php
+                $id = $rows["id"];
+
+                echo "<form action='' method='post'>
+                <input type='hidden' name='delete_id' value='$id'>
+                <button class='delete' type='submit' name= 'delete' >Delete</button>
+                </form>" ;
+                ?>
+
+
             </td>
         </tr>
         <?php  
